@@ -2,9 +2,10 @@ library(KRLS)
 library(data.table)
 
 
+# Read in the dataframe
 
 
-######################Learning KRLS#############################
+# 
 X <- cbind(cstem_foranalysis_gem_wr_summer$urban, cstem_foranalysis_gem_wr_summer$WS100_ind_ALLandMISC,
            cstem_foranalysis_gem_wr_summer$U_B500_FoREST, cstem_foranalysis_gem_wr_summer$U_B1500_DRYCLEAN,
            cstem_foranalysis_gem_wr_summer$U_WS750_npri_all, cstem_foranalysis_gem_wr_summer$U_WS50_nrn_collector,
@@ -14,13 +15,13 @@ X <- cbind(cstem_foranalysis_gem_wr_summer$urban, cstem_foranalysis_gem_wr_summe
 
 Y <- cstem_foranalysis_gem_wr_summer$no2_ppb
 
-krlsout <- krls(X=X, y=Y)
+krlsout <- krls(X=X, y=Y, whichkernel="gaussian", lambda=NULL, sigma=NULL)
 
 krlsout$R2
 
 
-########################################LOOCV#########################################
-
+# LEAVE-ONE-OUT Cross Validation
+# Switch this to K-Fold Cross Validation
 KRLS_LOO_est_summer <- data.frame(id = cstem_foranalysis_gem_wr_summer$Site_ID,
                                                Measured_NO2 = cstem_foranalysis_gem_wr_summer$no2_ppb)
 
