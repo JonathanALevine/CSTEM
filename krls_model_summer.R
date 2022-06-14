@@ -22,6 +22,10 @@ X <- cbind(dataframe$urban, dataframe$WS100_ind_ALLandMISC,
 # Label vector
 y <- c(dataframe$no2_ppb)
 
+lambdas = linspace(0, 1, 1000)
+
+print(lambdas)
+
 # fit the KRLS model
 krlsout <- krls(X=X, y=y, whichkernel="gaussian", lambda=0.00001, sigma=0.00001)
 
