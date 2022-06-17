@@ -9,6 +9,7 @@ library(pracma)
 # Read in the dataframe
 dataset = "summer_dataset.csv"
 dataframe <- read.csv(dataset, header=TRUE, sep=",")
+# Remove NaN values of no2_ppb
 dataframe <- dataframe[!is.na(dataframe$no2_ppb),]
 
 # # Feature matrix
@@ -22,11 +23,15 @@ X <- cbind(dataframe$urban, dataframe$WS100_ind_ALLandMISC,
 # Label vector
 y <- c(dataframe$no2_ppb)
 
-lambdas = linspace(0, 1, 1000)
+lambdas <- linspace(0.0000000000000001, 0.000000000001, 100)
+r2_values <- rep(0, length(lambdas))
 
-print(lambdas)
+for(i in 1:(length(lambdas))){
+    # Fit the KRLS model
+    krlsout <- krls(X=X, y=y, whichkernel="gaussian", lambda=lambdas[i], sigma=NULL)
+    # Display the R2 value
+    r2_values[i] <- krlsout$R2
+    cat(i, lambdas[i], krlsout$R2)
+}
 
-# fit the KRLS model
-krlsout <- krls(X=X, y=y, whichkernel="gaussian", lambda=0.00001, sigma=0.00001)
-
-krlsout$R2
+plot(lambdas, r2_values, pch=20)
