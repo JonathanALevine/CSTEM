@@ -6,13 +6,14 @@ library(pracma)
 # The features of the krls model are 
 # the most significant features found from a linear regression
 
+
 # Read in the dataframe
-dataset = "summer_dataset.csv"
+dataset = "datasets/summer_dataset.csv"
 dataframe <- read.csv(dataset, header=TRUE, sep=",")
 # Remove NaN values of no2_ppb
 dataframe <- dataframe[!is.na(dataframe$no2_ppb),]
 
-# # Feature matrix
+# Feature matrix
 features <- cbind(dataframe$urban, dataframe$WS100_ind_ALLandMISC,
            dataframe$U_B500_FoREST, dataframe$U_B1500_DRYCLEAN,
            dataframe$U_WS750_npri_all, dataframe$U_WS50_nrn_collector,
