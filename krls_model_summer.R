@@ -49,9 +49,9 @@ num_rows = length(features)
 #     predict(krls_model, newdata=test_features, se.fit=TRUE)
 # }
 
-for (site_num in 1:nrow(dataframe)){
+for (i in 1:nrow(dataframe)){
     # train set
-    train <- dataframe[-c(site_num),]
+    train <- dataframe[-c(i),]
     # training feautures 
     train_features <- cbind(train$urban, train$WS100_ind_ALLandMISC, train$U_B500_FoREST, 
                     train$U_B1500_DRYCLEAN, train$U_WS750_npri_all, train$U_WS50_nrn_collector, 
@@ -61,7 +61,7 @@ for (site_num in 1:nrow(dataframe)){
     train_labels <- train$no2_ppb
 
     # test set
-    test_full <- dataframe[c(site_num),]
+    test_full <- dataframe[c(i),]
 
     # test feautures
     test_features <- cbind(test_full$urban, test_full$WS100_ind_ALLandMISC, 
@@ -74,7 +74,7 @@ for (site_num in 1:nrow(dataframe)){
     print(train_features)
     krls_model <- krls(X=train_features, y=train_labels,, whichkernel="gaussian", lambda=test_lambda, binary = TRUE)
 
-    print(site_num)
+    print(i)
     
     predict(krls_model, newdata=test_features, se.fit=TRUE)
 }
