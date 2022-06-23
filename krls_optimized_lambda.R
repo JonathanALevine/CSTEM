@@ -72,7 +72,11 @@ for (i in 1:nrow(dataframe)){
                 test_full$N_U_WS500_intchg_ramp, test_full$N_U_WS50_ind, 
                 test_full$N_U_DIST_NO2, test_full$N_U_DIST_SANDGRAVEL)
 
-    krls_model <- krls(X=train_features, y=train_labels,, whichkernel="gaussian", lambda=test_lambda, binary = TRUE)
+    krls_model <- krls(X=train_features, 
+                       y=train_labels, 
+                       whichkernel="gaussian", 
+                       lambda=test_lambda, 
+                       binary = TRUE)
 
     print(i)
     

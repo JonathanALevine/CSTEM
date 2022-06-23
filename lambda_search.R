@@ -4,7 +4,7 @@ library(pracma)
 
 
 # Read in the dataframe
-dataset = "datasets/summer_dataset.csv"
+dataset <- "datasets/summer_dataset.csv"
 dataframe <- read.csv(dataset, header=TRUE, sep=",")
 # Remove NaN values of no2_ppb
 dataframe <- dataframe[!is.na(dataframe$no2_ppb),]
@@ -20,7 +20,14 @@ features <- cbind(dataframe$urban, dataframe$WS100_ind_ALLandMISC,
 # Label vector
 labels <- c(dataframe$no2_ppb)
 
-krls_model <- krls(X=features, y=labels, whichkernel="gaussian", lambda=NULL, sigma=NULL, L=NULL, U=NULL, tol=NULL)
+krls_model <- krls(X=features, 
+                   y=labels, 
+                   whichkernel="gaussian", 
+                   lambda=NULL, 
+                   sigma=NULL, 
+                   L=NULL, 
+                   U=NULL, 
+                   tol=NULL)
 
 print(krls_model$R2)
 print(krls_model$lambda)
